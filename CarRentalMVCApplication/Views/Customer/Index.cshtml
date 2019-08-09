@@ -1,4 +1,5 @@
 ﻿@model CarRentalMVCApplication.ViewModels.SearchBarViewModel
+    @using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "Index";
 }
@@ -7,25 +8,25 @@
 </div>
 
 @*<button class="btn btn-primary">
-    @Html.ActionLink("Create New Customer ", "CustForm", null,
-                     new { @style = "color:white;text-decoration:none" })
-</button>*@
+        @Html.ActionLink("Create New Customer ", "CustForm", null,
+                         new { @style = "color:white;text-decoration:none" })
+    </button>*@
 <div style="float:right">
     @using (Html.BeginForm("Index", "Customer", FormMethod.Get))
     {
-    <div style="color:white">
-        <p>
-            Search By:
-            @Html.RadioButton("option", "First name")First Name
-            @Html.RadioButton("option", "Email")Email
-            @Html.RadioButton("option", "PhoneNumber")Phone Number
-        </p>
+        <div style="color:white">
+            <p>
+                Search By:
+                @Html.RadioButton("option", "First name")First Name
+                @Html.RadioButton("option", "Email")Email
+                @Html.RadioButton("option", "PhoneNumber")Phone Number
+            </p>
 
-        <p>
-            @Html.TextBox("Search")
-            <button class="btn btn-primary" type="submit">Search</button>
-        </p>
-    </div>
+            <p>
+                @Html.TextBox("Search")
+                <button class="btn btn-primary" type="submit">Search</button>
+            </p>
+        </div>
 
     }
     <br />
@@ -52,26 +53,33 @@
                 </tr>
                 @foreach (var c in Model.Users)
                 {
-                    <tr>
-                        <td>@c.FirstName</td>
-                        <td>@c.LastName</td>
-                        <td>@c.PhoneNumber</td>
-                        <td>@c.Email</td>
+                    if (User.Identity.GetUserId() == c.Id)
+                    {
 
-                        <td class="col-md-3">
-                            @*@if (ViewContext.HttpContext.User.IsInRole("Admin"))
-                            {*@
-                            @Html.ActionLink(" Edit", "CustForm", c, new { @class = "btn btn-success", @style = "color: white; text-decoration:none" })
-                            @Html.ActionLink("View Car", "CustAndCarForm", c, new { @class = "btn btn-primary", @style = "color: white; text-decoration:none" })
-                            @Html.ActionLink(" ", "Delete", new { c.Id }, new { @class = "btn btn-danger fa fa-trash", @style = "color: white; text-decoration:none" })
-                            @*}
-                            else
-                            {*@
-                            @*@Html.ActionLink(" Edit", "CustForm", c, new { @class = "btn btn-success", @style = "color: white; text-decoration:none" })
-                            @Html.ActionLink("View Car", "CustAndCarForm", c, new { @class = "btn btn-primary", @style = "color: white; text-decoration:none" })
-                            }*@
-                        </td>
-                    </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@c.FirstName</td>
+                            <td>@c.LastName</td>
+                            <td>@c.PhoneNumber</td>
+                            <td>@c.Email</td>
+
+                            <td class="col-md-3">
+                                @*@if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                                    {*@
+                                @Html.ActionLink(" Edit", "CustForm", c, new { @class = "btn btn-success", @style = "color: white; text-decoration:none" })
+                                @Html.ActionLink("View Car", "CustAndCarForm", c, new { @class = "btn btn-primary", @style = "color: white; text-decoration:none" })
+                                @Html.ActionLink(" ", "Delete", new { c.Id }, new { @class = "btn btn-danger fa fa-trash", @style = "color: white; text-decoration:none" })
+                                @*}
+                                    else
+                                    {*@
+                                @*@Html.ActionLink(" Edit", "CustForm", c, new { @class = "btn btn-success", @style = "color: white; text-decoration:none" })
+                                    @Html.ActionLink("View Car", "CustAndCarForm", c, new { @class = "btn btn-primary", @style = "color: white; text-decoration:none" })
+                                    }*@
+                            </td>
+                        </tr>
+                    }
                 }
             </table>
 
