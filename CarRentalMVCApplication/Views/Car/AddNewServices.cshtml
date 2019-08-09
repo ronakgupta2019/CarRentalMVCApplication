@@ -100,7 +100,7 @@
                 <td>@c.Miles</td>
                 <td>@c.Price</td>
                 <td>@c.Details</td>
-                <td>@c.DateAdded</td>
+                <td>@c.DateAdded.ToShortDateString()</td>
                 <td>@c.ServiceType.Name</td>
                 <td><button class="btn btn-danger">@Html.ActionLink("Delete", "Delete1", new { c.Id }, new { @style = "color: white; text-decoration:none" })</button></td>
             </tr>
