@@ -1,0 +1,36 @@
+﻿@model CarRentalMVCApplication.ViewModels.NewCustomerViewModel
+@{
+    ViewBag.Title = "CustForm";
+}
+
+<h2 style="color:white">Customer Form</h2>
+@using (Html.BeginForm("Save", "Customer"))
+{
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(m => m.User.FirstName)
+        @Html.TextBoxFor(m => m.User.FirstName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.User.FirstName)
+    </div>
+    <div class="form-group"style="color:white">
+        @Html.LabelFor(m => m.User.LastName)
+        @Html.TextBoxFor(m => m.User.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.User.LastName)
+    </div>
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(m => m.User.PhoneNumber)
+        @Html.TextBoxFor(m => m.User.PhoneNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.User.PhoneNumber)
+    </div>
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(m => m.User.Email)
+        @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.User.Email)
+    </div>
+    @Html.HiddenFor(m => m.User.Id)
+    <button class="btn btn-primary" type="submit">Save</button>
+    <button class="btn btn-primary">
+        @Html.ActionLink("Back ", "Index", null,
+                new { @style = "color:white;text-decoration:none" })
+    </button>
+}
+

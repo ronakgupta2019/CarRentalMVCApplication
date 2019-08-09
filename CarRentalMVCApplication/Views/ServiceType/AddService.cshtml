@@ -1,0 +1,25 @@
+﻿@model CarRentalMVCApplication.Models.ServiceType
+@{
+    ViewBag.Title = "AddService";
+}
+
+<h2 style="color:white">Add Service</h2>
+@using (Html.BeginForm("Save", "ServiceType"))
+{
+    <div class="form-group" style="color:white">
+
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    
+  
+
+    <button class="btn btn-primary" type="submit">Add</button>
+ 
+
+}
+@*@section scripts{
+        Scripts.Render("~/bundles/jqueryval")
+    }*@
+

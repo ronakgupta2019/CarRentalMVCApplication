@@ -1,0 +1,48 @@
+﻿@model CarRentalMVCApplication.ViewModels.SingleCarViewModel
+@{
+    ViewBag.Title = "CarForm";
+}
+
+<h2 style="color:white">Add New Car</h2>
+@using (Html.BeginForm("Save", "Car"))
+{
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(m => m.Car.VIN)
+        @Html.TextBoxFor(m => m.Car.VIN, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m=>m.Car.VIN)
+    </div>
+
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(m => m.Car.Make)
+        @Html.TextBoxFor(m => m.Car.Make, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m=>m.Car.Make)
+    </div>
+
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(m => m.Car.Model)
+        @Html.TextBoxFor(m => m.Car.Model, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m=>m.Car.Model)
+    </div>
+
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(m => m.Car.Color)
+        @Html.TextBoxFor(m => m.Car.Color, new { @class = "form-control" })
+
+    </div>
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(m => m.Car.Style)
+        @Html.TextBoxFor(m => m.Car.Style, new { @class = "form-control" })
+    </div>
+   
+    @Html.HiddenFor(c => c.User.Id)
+    @Html.HiddenFor(c=>c.User.FirstName)
+    @Html.HiddenFor(c=>c.User.LastName)
+    @Html.HiddenFor(c=>c.User.PhoneNumber)
+  
+    <button class="btn btn-primary" type="submit">Save</button>
+    <button class="btn btn-primary">
+        @Html.ActionLink("Back ", "CustAndCarForm", "Customer", Model.User,
+                          new { @style = "color:white;text-decoration:none" })
+    </button>
+
+}

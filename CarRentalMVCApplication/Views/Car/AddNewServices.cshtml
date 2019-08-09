@@ -1,0 +1,162 @@
+﻿@model CarRentalMVCApplication.ViewModels.CarAndServiceViewModel
+@{
+    ViewBag.Title = "AddNewServices";
+}
+
+<h2 style="color:white">Car records for customer</h2>
+<div class="form-group " @*style="color:white"*@>
+    <table class="table text-center table-striped table-hover jumbotron">
+        <tr>
+            <td>@Html.LabelFor(m => m.Car.Make)</td>
+            <td>@Html.TextBoxFor(m => m.Car.Make, new { @class = "form-control", @readonly = "readonly" })</td>
+
+            <td>@Html.LabelFor(m => m.Car.Style)</td>
+            <td>@Html.TextBoxFor(m => m.Car.Style, new { @class = "form-control", @readonly = "readonly" })</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => m.Car.Model)</td>
+            <td>@Html.TextBoxFor(m => m.Car.Model, new { @class = "form-control", @readonly = "readonly" })</td>
+
+
+            <td>@Html.LabelFor(m => m.Car.Year)</td>
+            <td>@Html.TextBoxFor(m => m.Car.Year, new { @class = "form-control", @readonly = "readonly" })</td>
+        </tr>
+    </table>
+    <hr />
+    <br />
+</div>
+
+@if (ViewContext.HttpContext.User.IsInRole("Admin"))
+{
+    <h2 style="color:white">Services</h2>
+
+    using (Html.BeginForm("AddServices", "Car"))
+    {
+
+        <div class="form-group" style="font-size:10px;">
+            <table class="table text-center table-striped table-hover jumbotron">
+                <tr>
+                    <td>@Html.LabelFor(m => m.Service.Miles)</td>
+                    <td>@Html.TextBoxFor(m => m.Service.Miles, new { @class = "form-control" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.Service.Miles)</td>
+
+                    <td>@Html.LabelFor(m => m.Service.Details)</td>
+                    <td>@Html.TextBoxFor(m => m.Service.Details, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Service.Price)</td>
+                    <td>@Html.TextBoxFor(m => m.Service.Price, new { @class = "form-control" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.Service.Price)</td>
+                    <td>@Html.LabelFor(m => m.Service.ServiceTypeId)</td>
+                    <td>
+                        @Html.DropDownListFor(m => m.Service.ServiceTypeId,
+                                                        new SelectList(Model.ServiceType, "Id", "Name"),
+                                                        "Select Service Type",
+                                                        new { @class = "form-control" })
+                    </td>
+                    <td>@Html.ValidationMessageFor(m => m.Service.ServiceTypeId)</td>
+                </tr>
+            </table>
+            <hr />
+            @Html.HiddenFor(m => m.Car.Id)
+            @Html.HiddenFor(m => m.Car.VIN)
+            @Html.HiddenFor(m => m.Car.Make)
+            @Html.HiddenFor(m => m.Car.Model)
+            @Html.HiddenFor(m => m.Car.Year)
+            <button class="btn btn-primary" style="color: white; text-decoration:none" type="submit">Add New Service</button>
+            <br />
+            <br />
+        </div>
+
+    }
+
+    <h3 style="color: whitesmoke;
+  font-weight:100;
+  display:inline-block;
+  background-color:rgba(0,0,0,0.7);
+  font-size: 30px;">
+        Past Service Records
+    </h3>
+
+    <table class="table  table-striped table-hover jumbotron">
+        <tr>
+            <th>Miles</th>
+            <th>Price</th>
+            <th>Details</th>
+            <th>Date Added</th>
+            <th>Service Name</th>
+            <th></th>
+        </tr>
+
+        @if (!Model.Services.Any())
+        {
+            <tr><td>No Services Found</td></tr>
+        }
+
+        @foreach (var c in Model.Services)
+        {
+            <tr>
+                <td>@c.Miles</td>
+                <td>@c.Price</td>
+                <td>@c.Details</td>
+                <td>@c.DateAdded</td>
+                <td>@c.ServiceType.Name</td>
+                <td><button class="btn btn-danger">@Html.ActionLink("Delete", "Delete1", new { c.Id }, new { @style = "color: white; text-decoration:none" })</button></td>
+            </tr>
+        }
+    </table>
+
+    <button class="btn btn-primary">
+        @Html.ActionLink("Back", "CustAndCarForm", "Customer", Model.User,
+                                                    new { @style = "color:white;text-decoration:none" })
+    </button>
+
+}
+else
+{
+    <h3 style="color: whitesmoke;
+  font-weight:100;
+  display:inline-block;
+  background-color:rgba(0,0,0,0.7);
+  font-size: 30px;">
+        Past Service Records
+    </h3>
+
+    <table class="table  table-striped table-hover jumbotron">
+        <tr>
+            <th>Miles</th>
+            <th>Price</th>
+            <th>Details</th>
+            <th>Date Added</th>
+            <th>Service Name</th>
+            <th></th>
+        </tr>
+
+        @if (!Model.Services.Any())
+        {
+            <tr><td>No Services Found</td></tr>
+        }
+
+        @foreach (var c in Model.Services)
+        {
+            <tr>
+                <td>@c.Miles</td>
+                <td>@c.Price</td>
+                <td>@c.Details</td>
+                <td>@c.DateAdded</td>
+                <td>@c.ServiceType.Name</td>
+                <td><button class="btn btn-danger">@Html.ActionLink("Delete", "Delete1", new { c.Id }, new { @style = "color: white; text-decoration:none" })</button></td>
+            </tr>
+        }
+    </table>
+
+    <button class="btn btn-primary">
+        @Html.ActionLink("Back", "CustAndCarForm", "Customer", Model.User,
+                                                    new { @style = "color:white;text-decoration:none" })
+    </button>
+
+
+
+
+}
