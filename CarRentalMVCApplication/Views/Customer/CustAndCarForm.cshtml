@@ -2,12 +2,21 @@
 @{
     ViewBag.Title = "CustAndCarForm";
 }
+@if (ViewContext.HttpContext.User.IsInRole("Admin"))
+{
+    <h2 style="color:white">User Record</h2>
+    <br />
+}
+else
+{
+    <h2 style="color:white">My Record</h2>
+    <br />
+}
 
-<h2 style="color:white">Car records for customer</h2>
-<br />
+
 <button class="btn btn-primary">
     @Html.ActionLink("Add Car ", "CarForm", "Car", Model.User,
-                    new { @style = "color:white;text-decoration:none" })
+                            new { @style = "color:white;text-decoration:none" })
 </button>
 
 
@@ -62,10 +71,10 @@
 
     </table>
 </div>
-@if(ViewContext.HttpContext.User.IsInRole("Admin"))
+@if (ViewContext.HttpContext.User.IsInRole("Admin"))
 {
-<button class="btn btn-primary">
-    @Html.ActionLink("Back", "Index", "Customer",
-                        new { @style = "color:white;text-decoration:none" })
-</button>
+    <button class="btn btn-primary">
+        @Html.ActionLink("Back", "Index", "Customer",
+                                     new { @style = "color:white;text-decoration:none" })
+    </button>
 }
